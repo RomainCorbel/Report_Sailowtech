@@ -9,28 +9,18 @@
   \label{fig:voilier}
 \end{figure}
 
-\textit{Sailowtech} est une initiative dont l'objectif est de rendre l'océanographie
-plus accessible et durable en équipant les expéditions à la voile d'innovations à
-bas coût. L'idée centrale est de transformer des voiliers ordinaires en plateformes
-de collecte de données scientifiques, sans alourdir les équipages de technologies
-complexes ou coûteuses. Les données ainsi récoltées --- qualité de l'air, paramètres
-de la colonne d'eau, couverture nuageuse --- alimentent des bases de données
-scientifiques ouvertes sur les océans.
+\textit{Sailowtech} est un projet MAKE de l'EPFL et une association dont la mission est de promouvoir une science de terrain frugale et participative. En organisant des expéditions scientifiques à la voile sur des lacs, des mers et des océans, l'association transforme des voiliers ordinaires en plateformes de collecte de données environnementales. Sailowtech défend une approche \textit{low-tech} et open-source : concevoir des instruments accessibles, les tester en conditions réelles, et partager librement les données et les conceptions afin de favoriser la transparence et l'amélioration collaborative. Les grandeurs mesurées couvrent la qualité de l'air, les paramètres de la colonne d'eau et l'environnement radiatif, contribuant à alimenter des bases de données scientifiques sur les milieux aquatiques.
 
 \subsection{Objectifs du projet}
 
-Notre projet de semestre ME-401, supervisé par Eric Boillat du Laboratoire de
-Métallurgie Thermomécanique (LMTM) de l'EPFL, consiste à concevoir et réaliser
-une station météo embarquée adaptée aux contraintes d'une expédition maritime.
-La station doit remplir plusieurs fonctions :
+Notre projet de semestre ME-401, supervisé par Eric Boillat du Laboratoire de métallurgie thermomécanique de l'EPFL, consiste à concevoir et réaliser une station météo embarquée adaptée aux contraintes d'une expédition maritime. La station doit remplir plusieurs fonctions :
 
 \begin{itemize}
   \item \textbf{Acquisition de données atmosphériques} : mesure des particules
     fines (PM$_{1.0}$, PM$_{2.5}$, PM$_{10}$), de l'irradiance solaire,
     de la température, de la pression et de l'humidité.
   \item \textbf{Intégration au réseau du bateau} : réception et coordination
-    des données provenant d'une sonde CTD (Conductivité, Température, Profondeur)
-    sous-marine et, potentiellement, du logiciel de navigation Garmin.
+    des données provenant du réseau de bord et d'une sonde CTD sous-marine.
   \item \textbf{Résistance aux conditions marines} : protection contre les
     projections d'eau, la corrosion saline et les vibrations.
   \item \textbf{Autonomie énergétique} : alimentation par batterie avec
@@ -39,13 +29,17 @@ La station doit remplir plusieurs fonctions :
     couverture nuageuse par analyse d'images.
 \end{itemize}
 
+\paragraph{Réseau du bateau.}
+La plupart des bateaux modernes sont équipés d'un ordinateur de bord (par exemple un navigateur Garmin) qui concentre une très grande quantité de données : position GPS, vitesse, cap, profondeur, données anémométriques, etc. Il est particulièrement intéressant de récupérer ces informations pour les enrichir avec celles de notre station, dans une logique de science participative frugale. Ces instruments communiquent via le protocole \textit{NMEA 2000}, basé sur le bus CAN (Controller Area Network), universellement adopté dans le domaine maritime et permettant d'interconnecter des équipements de marques différentes sur un seul câble blindé.
+
+\paragraph{Sonde CTD.}
+La sonde CTD (Conductivité, Température, Profondeur) est un instrument immergé qui regroupe plusieurs capteurs permettant de caractériser la colonne d'eau à la profondeur souhaitée : température, conductivité électrique (indicatrice de la salinité), pression, et éventuellement d'autres grandeurs comme la turbidité ou la fluorescence. Elle n'est pas nécessairement reliée à la station par câble : deux solutions sont envisagées selon le contexte de déploiement. La première repose sur une liaison câblée RS-485 ou RS-232, assurant une communication continue et en temps réel pendant l'immersion. La seconde, destinée aux déploiements sans câble, utilise un module Zigbee pour l'échange de paramètres avant immersion.
+
 \subsection{Répartition du travail}
 
-La réalisation du projet a été partagée entre les deux membres de l'équipe :
+Les deux membres de l'équipe ont participé à l'ensemble des aspects du projet, de la conception mécanique à l'électronique en passant par le firmware et l'algorithme de vision. Pour faciliter l'organisation, des rôles principaux ont été définis :
 
 \begin{itemize}
-  \item \textbf{Design électronique} : Guilhem Destriau (responsable principal)
-    et Romain Corbel.
-  \item \textbf{Design mécanique} : Romain Corbel (responsable principal)
-    et Guilhem Destriau.
+  \item \textbf{Design électronique} : Guilhem \textsc{Destriau} (responsable principal)
+  \item \textbf{Design mécanique} : Romain \textsc{Corbel} (responsable principal)
 \end{itemize}

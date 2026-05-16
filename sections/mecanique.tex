@@ -1,30 +1,20 @@
 \section{Design mécanique}\label{sec:mecanique}
 
-Le design mécanique de la station a été entièrement revu par rapport aux
-concepts initiaux. L'objectif était de concevoir un boîtier à la fois
-compact, résistant aux intempéries et offrant une ventilation passive
-suffisante pour que les mesures de température et d'humidité ne soient
-pas biaisées par l'échauffement interne.
+Le sujet principal du design mécanique est la modularité. Afin de pouvoir adapter la station à différents contextes et de faire évoluer le système selon les besoins, aucune pièce n'est fixée de manière définitive : l'assemblage repose sur des systèmes démontables (vis, entretoises, clips) qui permettent de remplacer ou de modifier les éléments sans outillage spécial. Ce principe s'applique aussi bien à l'intérieur qu'à l'extérieur du boîtier. La hauteur de la station peut par exemple être augmentée pour accueillir des capteurs supplémentaires ou des batteries de plus grande capacité.
 
 \subsection{Structure intérieure}\label{subsec:interieur}
 
-Les deux PCB sont empilés verticalement sur des entretoises filetées,
-formant une structure en deux étages analogue à un rack miniaturisé.
-Cette architecture présente plusieurs avantages :
+Les deux PCB sont empilés verticalement sur des entretoises filetées, formant une structure en deux étages analogue à un rack miniaturisé. Cette architecture présente plusieurs avantages :
 
 \begin{itemize}
-  \item Chaque étage est démontable indépendamment, ce qui facilite la
-    maintenance et le débogage.
+  \item Chaque étage est démontable indépendamment, ce qui facilite la maintenance.
   \item La forme circulaire des PCB optimise l'occupation du volume
     cylindrique disponible à l'intérieur du boîtier.
   \item Les connecteurs inter-étages sont positionnés pour minimiser la
     longueur des câbles.
 \end{itemize}
 
-Des prototypes de la structure intérieure ont été réalisés par découpe
-laser sur MDF, permettant de valider les cotes, les positions de fixation
-et l'accessibilité aux connecteurs avant la commande des PCB définitifs
-(figure~\ref{fig:interieur}).
+Des prototypes de la structure intérieure ont été réalisés par découpe laser sur MDF, permettant de valider les cotes, les positions de fixation et l'accessibilité aux connecteurs avant la commande des PCB définitifs (figure~\ref{fig:interieur}).
 
 \begin{figure}[H]
   \centering
@@ -43,31 +33,17 @@ et l'accessibilité aux connecteurs avant la commande des PCB définitifs
 
 \subsection{Boîtier extérieur}\label{subsec:exterieur}
 
-Le boîtier extérieur s'inspire du principe de l'\textit{abri de Stevenson},
-un standard météorologique historique conçu pour protéger les instruments
-de mesure du rayonnement solaire direct et des précipitations, tout en
-permettant la libre circulation de l'air. Notre version adapte ce concept
-à une géométrie cylindrique compacte, plus adaptée à une fixation sur un
-mât ou une rambarde de voilier.
+Plusieurs designs ont été explorés et testés avant d'aboutir à la solution actuelle.
 
-La station se compose de deux parties distinctes :
+Nous sommes d'abord repartis du design initial issu des projets précédents : un boîtier cylindrique fermé avec des ouvertures latérales. Il est rapidement apparu que sans ventilation active, ce type de conception ne permettrait jamais un renouvellement d'air suffisant pour obtenir des mesures représentatives de l'atmosphère extérieure.
 
-\begin{itemize}
-  \item \textbf{Partie basse (blanche)} : corps cylindrique en plastique blanc
-    à faible absorption solaire. Des ouvertures latérales permettent la
-    circulation de l'air autour des capteurs atmosphériques tout en
-    bloquant les projections directes d'eau.
-  \item \textbf{Chapeau supérieur (noir)} : capot orienté vers le ciel
-    qui accueille la caméra sous un dôme en plexiglas transparent pour
-    l'acquisition d'images nuageuses.
-\end{itemize}
+Nous avons ensuite testé l'intégration de membranes Gore-Tex dans les ouvertures. Ces membranes présentent un intérêt réel : l'air passe à travers sans que l'eau ne puisse y pénétrer. Cependant, la résistance à l'écoulement qu'elles introduisent confirme que la ventilation passive reste insuffisante.
 
-Des prototypes de cette enveloppe ont été réalisés en impression 3D
-(PLA et PETG), permettant de valider l'assemblage et l'étanchéité des
-jointures avant d'envisager des matériaux plus durables pour une
-utilisation marine prolongée. Des membranes \textit{Gore-Tex} ont
-également été intégrées dans les tests pour évaluer leur capacité à
-assurer la ventilation tout en empêchant les entrées d'eau.
+La solution retenue s'inspire du principe de l'\textit{abri de Stevenson}, standard météorologique historique conçu pour protéger les instruments de mesure du rayonnement solaire direct et des précipitations, tout en permettant la libre circulation de l'air. Notre version adapte ce concept à une géométrie cylindrique compacte, mieux adaptée à une fixation sur un mât ou une rambarde de voilier. Nous avons testé différentes longueurs et inclinaisons des lamelles par impression 3D jusqu'à trouver un design offrant le meilleur compromis entre protection face aux projections d'eau et aération suffisante.
+
+La station est entièrement blanche : c'est un choix délibéré pour limiter l'absorption du rayonnement solaire et éviter que le boîtier ne se réchauffe, ce qui biaiserait les mesures de température et d'humidité intérieures.
+
+Grâce au principe de modularité, la partie supérieure du boîtier peut être changée en fonction des conditions de navigation. La version actuelle, polyvalente, est conçue pour convenir à toutes les conditions non extrêmes. Des tests en conditions réelles ont été effectués et ont permis de valider ce design.
 
 \begin{figure}[H]
   \centering
@@ -80,41 +56,24 @@ assurer la ventilation tout en empêchant les entrées d'eau.
     \includegraphics[width=\textwidth]{images/mecanique_boitier_photo.png}
     \caption{Prototype imprimé 3D}
   \end{subfigure}
-  \caption{Boîtier extérieur : chapeau noir (caméra) et corps blanc (ventilation).}
+  \caption{Boîtier extérieur : abri de Stevenson cylindrique, entièrement blanc.}
   \label{fig:exterieur}
 \end{figure}
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.5\textwidth]{images/station_assemblée.png}
-  \caption{Station assemblée avec les PCBs montés sur la structure intérieure.}
+  \caption{Station assemblée avec les PCB montés sur la structure intérieure.}
   \label{fig:station_assemblée}
 \end{figure}
 
-\subsection{Problèmes identifiés et solutions}\label{subsec:problemes_meca}
-
-Deux risques ont été identifiés lors des tests préliminaires et font
-l'objet d'investigations spécifiques.
+\subsection{Points de conception}\label{subsec:points_conception}
 
 \paragraph{Effet de serre lié au dôme en plexiglas.}
-Le plexiglas est transparent au rayonnement visible mais partiellement
-opaque au rayonnement infrarouge thermique. Il pourrait donc créer un
-effet de serre local sous le capot supérieur, biaisant les mesures de
-température et d'humidité si les capteurs se trouvent à proximité. Des
-mesures comparatives sont prévues pour quantifier cet écart. Si l'effet
-est significatif, la plaque supérieure sera remplacée par un matériau
-ajouré ou traité antireflet, ou les capteurs sensibles seront déplacés
-vers la partie basse du boîtier.
+La quantité de plexiglas transparent a été réduite au strict nécessaire : seule la fenêtre de la caméra requiert ce matériau. La station est par ailleurs entièrement blanche, ce qui limite l'absorption du rayonnement solaire et contribue à maintenir une température interne proche de la température ambiante.
 
-\paragraph{Ventilation suffisante.}
-L'abri de Stevenson repose sur la convection naturelle. Sur un voilier
-en mouvement, le vent relatif est généralement suffisant pour assurer
-un renouvellement d'air permanent. Pour les situations de calme plat,
-une alternative basée sur un tube en coude (aspiration passive par
-effet venturi du vent résiduel) a été envisagée. Cette solution
-nécessiterait toutefois l'ajout d'un ventilateur en l'absence de vent,
-ce qui augmente la complexité et la consommation électrique. Les tests
-en conditions réelles permettront de trancher.
+\paragraph{Résistance mécanique et étanchéité.}
+La résistance mécanique du boîtier et son étanchéité ont été testées en conditions simulées (aspersions d'eau, chocs). Ces tests ont confirmé la robustesse de l'assemblage et la tenue des joints.
 
 \begin{figure}[H]
   \centering
@@ -127,6 +86,6 @@ en conditions réelles permettront de trancher.
     \includegraphics[width=\textwidth]{images/mecanique_ventilation.png}
     \caption{Schéma de circulation d'air}
   \end{subfigure}
-  \caption{Ventilation passive : entrées d'air latérales et sortie par le haut.}
+  \caption{Ventilation passive : entrées d'air latérales par les lamelles de l'abri de Stevenson.}
   \label{fig:ventilation}
 \end{figure}

@@ -1,43 +1,40 @@
 \section{Conclusion et perspectives}\label{sec:conclusion}
 
-Ce projet de semestre ME-401 a permis de concevoir et de réaliser les
-premières versions fonctionnelles d'une station météo embarquée pour les
-expéditions à la voile dans le cadre du projet Sailowtech.
+Ce projet de semestre ME-401 a permis de concevoir et de réaliser une version
+fonctionnelle d'une station météo embarquée pour les expéditions à la voile
+dans le cadre du projet Sailowtech.
 
 \subsection{Bilan des travaux}
 
 Les travaux accomplis couvrent l'ensemble de la chaîne, de la conception
-jusqu'à la validation préliminaire :
+jusqu'à la validation en conditions réelles :
 
 \begin{itemize}
   \item \textbf{Architecture électronique} : conception et routage de deux
     PCB circulaires (étage contrôle et étage capteurs), réception de
     l'ensemble des composants, soudure et assemblage réalisés.
 
-  \item \textbf{Firmware} : développement d'un premier firmware de
-    validation (lecture des capteurs, enregistrement SD, communication
-    Wi-Fi) et d'un module de vision par ordinateur pour la détection
-    de la couverture nuageuse.
+  \item \textbf{Firmware} : développement d'un firmware fonctionnel
+    (lecture des capteurs, enregistrement SD, communication Wi-Fi) et
+    d'un module de vision par ordinateur pour la détection de la couverture
+    nuageuse.
 
   \item \textbf{Design mécanique} : conception d'un boîtier cylindrique
-    inspiré de l'abri de Stevenson, réalisation de prototypes par
-    impression 3D et découpe laser, intégration de membranes Gore-Tex
-    pour tester la ventilation étanche.
+    modulaire inspiré de l'abri de Stevenson, réalisation de prototypes par
+    impression 3D et découpe laser, tests d'étanchéité et de résistance
+    mécanique réalisés, validation en conditions réelles effectuée.
 \end{itemize}
 
 \subsection{Travaux restants}
 
-Les prochaines étapes pour finaliser et valider la station sont :
+Les prochaines étapes pour finaliser et enrichir la station sont :
 
 \begin{enumerate}
-  \item Tester la résistance mécanique du boîtier et son étanchéité
-    en conditions simulées (aspersions d'eau, chocs).
-  \item Quantifier l'effet de serre du dôme en plexiglas et adapter
-    le design si nécessaire.
-  \item Évaluer la ventilation passive dans différentes conditions de vent
-    et valider que les mesures de température ne sont pas biaisées.
   \item Intégrer et valider l'ensemble de la chaîne de mesure lors d'une
-    sortie en mer avec l'équipe Sailowtech.
+    sortie en mer avec l'équipe Sailowtech, en particulier la connectivité
+    NMEA 2000 et CTD.
+  \item Quantifier l'effet de serre résiduel sous le dôme en plexiglas et
+    adapter le design si nécessaire.
   \item Améliorer l'algorithme de vision par ordinateur pour les cas
     difficiles (ciel couvert uniforme, contre-jour).
 \end{enumerate}
