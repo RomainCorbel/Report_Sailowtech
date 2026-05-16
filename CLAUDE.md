@@ -1,63 +1,61 @@
 # CLAUDE.md
 
-Conventions for any Claude Code session working in this repository.
+Conventions pour toute session Claude Code travaillant dans ce dépôt.
 
-## What this repo is
+## Ce qu'est ce dépôt
 
-A LaTeX guide describing a workflow that combines Overleaf, GitHub, and Claude
-Code for writing academic papers. The repository is deliberately structured as
-a worked example of that workflow, so patterns here (modular `\input`,
-`.gitignore`, this very file) should be kept representative.
+Rapport de projet de semestre ME-401 rédigé en LaTeX, décrivant la conception
+d'une station météo embarquée pour les expéditions à la voile (projet Sailowtech).
+Réalisé par Guilhem Destriau et Romain Corbel sous la supervision d'Eric Boillat
+(LMTM — Thermomechanical Metallurgy Laboratory, EPFL).
 
-## File layout
+## Structure des fichiers
 
-- `main.tex` — preamble and `\input{sections/...}` of each section. Do not put
-  prose here; keep it a thin shell.
-- `sections/*.tex` — one file per section of the guide.
-- `references.bib` — bibliography (small; used for a citation example).
-- `README.md` — one-paragraph pointer to `main.tex`.
+- `main.tex` — préambule et `\input{sections/...}` de chaque section. Ne pas
+  mettre de prose ici ; conserver comme coquille mince.
+- `sections/*.tex` — un fichier par section du rapport.
+- `references.bib` — bibliographie.
+- `images/` — figures et images incluses dans le rapport.
 
-## Style
+## Style rédactionnel
 
-- British English ("colour", "organise", "centre").
-- Second person for instructions to the reader ("you", not "we" or "one").
-- Present tense for descriptions; imperative for steps.
-- Oxford comma; en-dash for ranges; em-dash for asides without surrounding
-  spaces.
-- Defined terms italicised on first use, roman afterwards.
-- Keep sentences short. Prefer concrete verbs over abstract nouns.
+- Français : orthographe et typographie françaises.
+- Première personne du pluriel ("nous avons conçu") pour les descriptions de
+  travaux effectués. Infinitif pour les étapes.
+- Présent pour les descriptions ; infinitif ou impératif pour les procédures.
+- Termes techniques introduits en italique à la première occurrence, romains
+  ensuite.
+- Phrases courtes. Préférer des verbes concrets aux noms abstraits.
 
-## LaTeX conventions
+## Conventions LaTeX
 
-- `\citet{}` when the author is a grammatical subject ("Smith et al. (2023)
-  showed…"); `\citep{}` when parenthetical. Every `\cite` key must exist in
-  `references.bib`; never invent keys.
-- Use the existing `tipbox` and `pitfallbox` environments for callouts rather
-  than inventing new ones.
-- Use the existing `shell`, `prompt`, and `tex` listings styles rather than
-  ad-hoc formatting.
-- Use `booktabs` rules (`\toprule`, `\midrule`, `\bottomrule`); no vertical
-  rules.
-- Prefer `\texttt{}` for inline code in prose and `lstlisting` for blocks.
+- `\cite{}` pour toutes les références. Chaque clé doit exister dans
+  `references.bib` ; ne jamais inventer de clé.
+- Utiliser `booktabs` (`\toprule`, `\midrule`, `\bottomrule`) ; pas de filets
+  verticaux dans les tableaux.
+- Préférer `\texttt{}` pour le code en ligne et `lstlisting` pour les blocs.
+- Les figures doivent avoir une `\caption` et être référencées dans le texte
+  avec `\ref{}`.
+- Utiliser `\label{sec:...}` pour les sections, `\label{fig:...}` pour les
+  figures et `\label{tab:...}` pour les tableaux.
 
-## Do not commit
+## Ne pas committer
 
-Build artefacts: `*.aux`, `*.log`, `*.out`, `*.toc`, `*.bbl`, `*.blg`, `*.fls`,
-`*.fdb_latexmk`, `*.synctex.gz`, and compiled PDFs. These are covered by
-`.gitignore`; keep them there.
+Artefacts de compilation : `*.aux`, `*.log`, `*.out`, `*.toc`, `*.bbl`,
+`*.blg`, `*.fls`, `*.fdb_latexmk`, `*.synctex.gz` et les PDF compilés.
+Couverts par `.gitignore`.
 
-## Commit style
+## Style de commit
 
-- Imperative mood, ≤ 72 characters for the subject line.
-- Describe the *why*, not the *what* (the diff shows the what).
-- Example: `Tighten intro to fit 400-word limit requested by R1`.
-- One logical change per commit.
+- Mode impératif, ≤ 72 caractères pour la ligne d'objet.
+- Décrire le *pourquoi*, pas le *quoi* (le diff montre le quoi).
+- Un changement logique par commit.
 
-## When editing
+## Lors des modifications
 
-- Make the smallest diff that achieves the request. Do not reflow entire
-  paragraphs unless asked.
-- If asked to do something global, produce a plan or a report first; wait for
-  approval before writing.
-- When adding a new section, add it both as a `sections/<name>.tex` file and as
-  an `\input{sections/<name>}` in `main.tex`, in the intended reading order.
+- Faire la modification minimale qui satisfait la demande.
+- Pour les modifications globales, produire un plan d'abord ; attendre
+  l'approbation avant d'écrire.
+- Quand on ajoute une nouvelle section, l'ajouter à la fois comme fichier
+  `sections/<nom>.tex` et comme `\input{sections/<nom>}` dans `main.tex`,
+  dans l'ordre de lecture voulu.

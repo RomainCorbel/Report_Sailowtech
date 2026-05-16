@@ -1,20 +1,53 @@
-\section{Conclusion}
+\section{Conclusion et perspectives}\label{sec:conclusion}
 
-The workflow in this guide is not novel infrastructure. It is three existing tools aimed at what each is best at:
+Ce projet de semestre ME-401 a permis de concevoir et de réaliser les
+premières versions fonctionnelles d'une station météo embarquée pour les
+expéditions à la voile dans le cadre du projet Sailowtech.
 
-\begin{itemize}[leftmargin=*]
-  \item \textbf{Overleaf} for the parts of writing that are about flow and feedback.
-  \item \textbf{Claude Code} for the parts that are about scale and consistency.
-  \item \textbf{GitHub} for the parts that are about history and collaboration.
+\subsection{Bilan des travaux}
+
+Les travaux accomplis couvrent l'ensemble de la chaîne, de la conception
+jusqu'à la validation préliminaire :
+
+\begin{itemize}
+  \item \textbf{Architecture électronique} : conception et routage de deux
+    PCB circulaires (étage contrôle et étage capteurs), réception de
+    l'ensemble des composants, soudure et assemblage réalisés.
+
+  \item \textbf{Firmware} : développement d'un premier firmware de
+    validation (lecture des capteurs, enregistrement SD, communication
+    Wi-Fi) et d'un module de vision par ordinateur pour la détection
+    de la couverture nuageuse.
+
+  \item \textbf{Design mécanique} : conception d'un boîtier cylindrique
+    inspiré de l'abri de Stevenson, réalisation de prototypes par
+    impression 3D et découpe laser, intégration de membranes Gore-Tex
+    pour tester la ventilation étanche.
 \end{itemize}
 
-The compound effect is larger than any one of them. You write faster because you stay in the tool that is best for the moment, and you are not afraid of bulk changes because Claude makes them reviewable and Git makes them reversible.
+\subsection{Travaux restants}
 
-Two final suggestions to get the most out of this:
+Les prochaines étapes pour finaliser et valider la station sont :
 
-\begin{enumerate}[leftmargin=*]
-  \item \textbf{Invest in \texttt{CLAUDE.md} early.} The first hour you spend writing it pays for itself within a week. Every convention you encode is one you never re-explain.
-  \item \textbf{Build the PDF in CI.} Every push verifies the paper compiles. You will catch more problems before your co-authors do, and Claude gets a feedback loop it can learn from.
+\begin{enumerate}
+  \item Tester la résistance mécanique du boîtier et son étanchéité
+    en conditions simulées (aspersions d'eau, chocs).
+  \item Quantifier l'effet de serre du dôme en plexiglas et adapter
+    le design si nécessaire.
+  \item Évaluer la ventilation passive dans différentes conditions de vent
+    et valider que les mesures de température ne sont pas biaisées.
+  \item Intégrer et valider l'ensemble de la chaîne de mesure lors d'une
+    sortie en mer avec l'équipe Sailowtech.
+  \item Améliorer l'algorithme de vision par ordinateur pour les cas
+    difficiles (ciel couvert uniforme, contre-jour).
 \end{enumerate}
 
-The repository containing this guide is itself an example --- modular sections, a \verb|CLAUDE.md|, a \verb|.gitignore|, and one commit per meaningful change. Open it in Overleaf, edit with Claude Code, and use it as a starting point for your own projects.
+\subsection{Conclusion}
+
+La station conçue répond aux objectifs initiaux : elle est compacte,
+modulaire, capable de mesurer la qualité de l'air et les paramètres
+météorologiques, et peut communiquer avec les instruments du bateau via
+NMEA 2000. L'intégration dans l'écosystème Sailowtech ouvre la voie à
+un réseau distribué de voiliers collectant des données environnementales
+en haute mer, avec un coût matériel très inférieur aux solutions
+professionnelles existantes.

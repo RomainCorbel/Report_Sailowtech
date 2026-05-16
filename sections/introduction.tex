@@ -1,20 +1,51 @@
-\section{Introduction}
+\section{Introduction}\label{sec:introduction}
 
-Every academic writer knows the feeling: the paper is almost done, and then the real work begins. A reviewer asks you to rename a defined term that appears forty times across eight files. Your co-author decides to reformat every citation the night before submission. The journal's word limit is 250 words shorter than your abstract. Half your cross-references point at labels that no longer exist, and you only find out when you open the PDF. These tasks are not difficult---they are just slow, tedious, and easy to get wrong when done by hand.
+\subsection{Contexte : le projet Sailowtech}
 
-The standard solution is to write academic papers in \LaTeX{} using \textit{Overleaf}. \LaTeX{} is a document preparation system: instead of clicking formatting buttons, you write markup that a compiler turns into precisely laid-out PDFs. It is the standard in mathematics, physics, computer science, and many other fields because it handles equations, citations, cross-references, and journal templates with a precision that word processors cannot match. Overleaf makes \LaTeX{} accessible: it runs in your browser, compiles your document in real time, and lets co-authors collaborate through a shared link---no installation required.
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\textwidth]{images/voilier_sunset.png}
+  \caption{Un voilier équipé de la station Sailowtech en expédition.}
+  \label{fig:voilier}
+\end{figure}
 
-But even Overleaf has limits. It is designed for writing and real-time collaboration, not for bulk edits that span many files at once. Renaming a term globally, enforcing a citation style across an entire manuscript, or auditing every cross-reference in a large project---these are jobs Overleaf was never built to do efficiently. The gap is not a flaw; it is a deliberate design choice. Overleaf is a writing environment. It needs a partner for the editing jobs.
+\textit{Sailowtech} est une initiative dont l'objectif est de rendre l'océanographie
+plus accessible et durable en équipant les expéditions à la voile d'innovations à
+bas coût. L'idée centrale est de transformer des voiliers ordinaires en plateformes
+de collecte de données scientifiques, sans alourdir les équipages de technologies
+complexes ou coûteuses. Les données ainsi récoltées --- qualité de l'air, paramètres
+de la colonne d'eau, couverture nuageuse --- alimentent des bases de données
+scientifiques ouvertes sur les océans.
 
-Two free tools fill that gap. \textit{GitHub} is a service that stores your project online and keeps a complete, named history of every change you make---think of it as a permanent, searchable undo history for your entire project, where every edit is labelled and anything can be reversed. \textit{Claude Code} is an AI assistant that runs on your computer and can read, understand, and edit every file in your project at once; you describe what you want in plain English, it proposes the changes, and you approve or reject them. Neither tool requires programming experience.
+\subsection{Objectifs du projet}
 
-Together, the three tools form a short loop:
+Notre projet de semestre ME-401, supervisé par Eric Boillat du Laboratoire de
+Métallurgie Thermomécanique (LMTM) de l'EPFL, consiste à concevoir et réaliser
+une station météo embarquée adaptée aux contraintes d'une expédition maritime.
+La station doit remplir plusieurs fonctions :
 
-\begin{enumerate}[leftmargin=*]
-  \item \textbf{Draft} in Overleaf with live preview, as normal.
-  \item \textbf{Save a checkpoint} by syncing to GitHub from Overleaf's menu---one click, and the current state of every file is labelled and stored.
-  \item \textbf{Ask Claude Code} to make the edit you need; review what it proposes; approve it.
-  \item \textbf{Sync back} to Overleaf and continue writing.
-\end{enumerate}
+\begin{itemize}
+  \item \textbf{Acquisition de données atmosphériques} : mesure des particules
+    fines (PM$_{1.0}$, PM$_{2.5}$, PM$_{10}$), de l'irradiance solaire,
+    de la température, de la pression et de l'humidité.
+  \item \textbf{Intégration au réseau du bateau} : réception et coordination
+    des données provenant d'une sonde CTD (Conductivité, Température, Profondeur)
+    sous-marine et, potentiellement, du logiciel de navigation Garmin.
+  \item \textbf{Résistance aux conditions marines} : protection contre les
+    projections d'eau, la corrosion saline et les vibrations.
+  \item \textbf{Autonomie énergétique} : alimentation par batterie avec
+    régulation DC-DC embarquée.
+  \item \textbf{Vision par ordinateur (bonus)} : détection automatique de la
+    couverture nuageuse par analyse d'images.
+\end{itemize}
 
-Bulk edits that used to take an hour take a sentence. Every change is logged and reversible. You can attempt a large restructure and undo it completely if you dislike the result. You are not replacing your Overleaf workflow---you are adding two tools that handle the jobs Overleaf was never designed for. The repository that contains this document is itself a worked example: a modular \LaTeX{} project with a conventions file, a tidy \verb|.gitignore|, and one commit per change.
+\subsection{Répartition du travail}
+
+La réalisation du projet a été partagée entre les deux membres de l'équipe :
+
+\begin{itemize}
+  \item \textbf{Design électronique} : Guilhem Destriau (responsable principal)
+    et Romain Corbel.
+  \item \textbf{Design mécanique} : Romain Corbel (responsable principal)
+    et Guilhem Destriau.
+\end{itemize}
