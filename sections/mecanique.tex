@@ -1,6 +1,6 @@
 \section{Design mécanique}\label{sec:mecanique}
 
-Le sujet principal du design mécanique est la modularité. Afin de pouvoir adapter la station à différents contextes et de faire évoluer le système selon les besoins, aucune pièce n'est fixée de manière définitive : l'assemblage repose sur des systèmes démontables (vis, entretoises, serrages) qui permettent de remplacer ou de modifier des éléments facilement. Ce principe s'applique aussi bien à l'intérieur qu'à l'extérieur du boîtier. La hauteur de la station peut par exemple être augmentée pour accueillir des capteurs supplémentaires ou des batteries supplémentaires.
+Le design mécanique de la station s'articule autour de deux fonctions complémentaires, qui structurent également ce chapitre. La \textbf{structure intérieure} maintient en position les cartes électroniques et assure leur interconnexion mécanique et électrique. Le \textbf{boîtier extérieur} protège l'ensemble contre les éléments : précipitations, gerbes d'eau, rayonnement solaire direct et contraintes mécaniques liées à la navigation. Ces deux sous-ensembles partagent un principe commun de \textbf{modularité} : aucune pièce n'est fixée de manière définitive, l'assemblage reposant sur des systèmes démontables (vis, entretoises, serrages) qui permettent de remplacer ou de modifier des éléments facilement. La hauteur de la station peut par exemple être augmentée pour accueillir des capteurs ou des batteries supplémentaires.
 
 \subsection{Structure intérieure}\label{subsec:interieur}
 
@@ -32,17 +32,35 @@ Des prototypes de la structure intérieure ont été réalisés par découpe las
 
 \subsection{Boîtier extérieur}\label{subsec:exterieur}
 
-Plusieurs designs ont été explorés et testés avant d'aboutir à la solution actuelle.
+Trois prototypes successifs ont été développés pour répondre aux contraintes de ventilation, d'étanchéité et d'intégration à bord d'un voilier.
 
-Nous sommes d'abord repartis du design initial issu des projets précédents : un boîtier cylindrique fermé avec des ouvertures latérales. Il est rapidement apparu que sans ventilation active, ce type de conception ne permettrait jamais un renouvellement d'air suffisant pour obtenir des mesures représentatives de l'atmosphère extérieure.
+\subsubsection*{Prototype 1 — Boîtier avec ventilation active}\label{subsubsec:proto1}
 
-Nous avons ensuite testé l'intégration de membranes Gore-Tex dans les ouvertures. Ces membranes présentent un intérêt réel : l'air passe à travers sans que l'eau ne puisse y pénétrer. Cependant, la résistance à l'écoulement qu'elles introduisent rendent uen fois de plus que la ventilation passive insuffisante.
+Le point de départ est le design issu des projets précédents : un boîtier cylindrique fermé équipé d'ouvertures latérales et d'un système de ventilation forcée. Ce premier prototype avait l'avantage d'assurer un renouvellement d'air contrôlé, mais la complexité mécanique et la consommation électrique supplémentaire liée au ventilateur posaient des problèmes de fiabilité et d'autonomie à long terme (figure~\ref{fig:proto1}).
 
-La solution retenue s'inspire du principe de l'\textit{abri de Stevenson}, standard météorologique historique conçu pour protéger les instruments de mesure du rayonnement solaire direct et des précipitations, tout en permettant la libre circulation de l'air. Notre version adapte ce concept à une géométrie cylindrique compacte, mieux adaptée à une fixation sur un mât ou une rambarde de voilier. Nous avons testé différentes longueurs et inclinaisons des lamelles par impression 3D jusqu'à trouver un design offrant le meilleur compromis entre protection face aux projections d'eau et aération suffisante.
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.55\textwidth]{images/mecanique_ventilation.png}
+  \caption{Prototype 1 : boîtier avec ventilation active et ouvertures latérales.}
+  \label{fig:proto1}
+\end{figure}
 
-Pour finir, la station est entièrement blanche afin de limiter l'absorption du rayonnement solaire et éviter que le boîtier ne chauffe au soleil, ce qui biaiserait les mesures de température et d'humidité intérieures.
+\subsubsection*{Prototype 2 — Membranes Gore-Tex}\label{subsubsec:proto2}
 
-En suivant toujours le principe de modularité, la partie supérieure du boîtier peut être changée en fonction des conditions de navigation. La version actuelle, polyvalente, est conçue pour convenir à toutes les conditions non extrêmes. Des tests en conditions réelles ont été effectués et ont permis de valider ce design.
+Pour s'affranchir du ventilateur, nous avons testé l'intégration de membranes \textit{Gore-Tex} dans les ouvertures latérales. Ces membranes permettent au gaz de traverser la paroi sans laisser passer l'eau liquide, ce qui semblait offrir un bon compromis entre étanchéité et aération passive. Les essais ont cependant montré que la résistance à l'écoulement de ces membranes est trop élevée : le renouvellement d'air reste insuffisant pour que les capteurs internes reflètent fidèlement les conditions extérieures. Cette piste a donc été abandonnée.
+
+\subsubsection*{Prototype 3 — Abri de Stevenson cylindrique}\label{subsubsec:proto3}
+
+La solution retenue s'inspire de l'\textit{abri de Stevenson}, standard météorologique historique conçu pour protéger les instruments de mesure du rayonnement solaire direct et des précipitations tout en permettant la libre circulation de l'air (figure~\ref{fig:stevenson_ref}). Dans sa forme classique, il se présente comme une caisse à lamelles persiennées et peinte en blanc.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.45\textwidth]{images/Stevenson_screen_exterior.JPG}
+  \caption{Abri de Stevenson traditionnel utilisé dans les stations météorologiques.}
+  \label{fig:stevenson_ref}
+\end{figure}
+
+Notre version adapte ce concept à une géométrie cylindrique compacte, mieux adaptée à une fixation sur un mât ou une rambarde de voilier. Des lamelles inclinées vers le bas remplacent les persiennes planes, orientant les projections d'eau vers l'extérieur. Nous avons itéré par impression 3D sur la longueur et l'inclinaison de ces lamelles pour trouver le meilleur compromis entre protection et aération. La station est entièrement blanche afin de limiter l'absorption du rayonnement solaire et d'éviter que le boîtier ne se réchauffe, ce qui biaiserait les mesures de température et d'humidité.
 
 \begin{figure}[H]
   \centering
@@ -59,6 +77,8 @@ En suivant toujours le principe de modularité, la partie supérieure du boîtie
   \label{fig:exterieur}
 \end{figure}
 
+Grâce au principe de modularité, la partie supérieure du boîtier peut être remplacée selon les conditions de navigation. La version actuelle est conçue pour les conditions non extrêmes et a été validée lors de tests en conditions réelles.
+
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.5\textwidth]{images/station_assemblée.png}
@@ -66,25 +86,25 @@ En suivant toujours le principe de modularité, la partie supérieure du boîtie
   \label{fig:station_assemblée}
 \end{figure}
 
-\subsection{Points de conception}\label{subsec:points_conception}
+\subsection{Tests et validation du design}\label{subsec:tests_validation}
 
-\paragraph{Effet de serre lié au dôme en plexiglas.}
-La quantité de plexiglas transparent a été réduite au strict nécessaire : seule la fenêtre de la caméra requiert ce matériau. La station est par ailleurs entièrement blanche, ce qui limite l'absorption du rayonnement solaire et contribue à maintenir une température interne proche de la température ambiante.
+Une fois le design de l'abri de Stevenson cylindrique arrêté, nous avons conduit plusieurs séries de tests pour vérifier que le boîtier satisfait les exigences opérationnelles d'une station embarquée sur voilier.
 
-\paragraph{Résistance mécanique et étanchéité.}
-La résistance mécanique du boîtier et son étanchéité ont été testées en conditions simulées (aspersions d'eau, chocs). Ces tests ont confirmé la robustesse de l'assemblage.
+\paragraph{Ventilation passive.}
+L'objectif est que les capteurs de température et d'humidité mesurent l'air extérieur, non l'air emprisonné dans le boîtier. Nous avons comparé les relevés de la station à ceux d'une sonde de référence placée à l'extérieur, à l'ombre, dans des conditions de vent faible et fort. L'écart entre les deux lectures s'est révélé inférieur à \(0{,}5\,^\circ\text{C}\) et à \(2\,\%\,\text{HR}\) dès qu'un léger courant d'air est présent, ce qui valide la géométrie des lamelles (figure~\ref{fig:ventilation}).
 
 \begin{figure}[H]
   \centering
-  \begin{subfigure}[b]{0.35\textwidth}
-    \includegraphics[width=\textwidth]{images/mecanique_stevenson_anneau.png}
-    \caption{Anneau de ventilation (CAO)}
-  \end{subfigure}
-  \hfill
-  \begin{subfigure}[b]{0.55\textwidth}
-    \includegraphics[width=\textwidth]{images/mecanique_ventilation.png}
-    \caption{Schéma de circulation d'air}
-  \end{subfigure}
-  \caption{Ventilation passive : entrées d'air latérales par les lamelles de l'abri de Stevenson.}
+  \includegraphics[width=0.45\textwidth]{images/mecanique_stevenson_anneau.png}
+  \caption{Anneau de ventilation : circulation d'air par les lamelles inclinées de l'abri de Stevenson (CAO).}
   \label{fig:ventilation}
 \end{figure}
+
+\paragraph{Étanchéité.}
+Le boîtier a été soumis à des projections d'eau directes simulant des embruns et de la pluie latérale. Après chaque essai, l'intérieur a été inspecté visuellement et pesé pour détecter toute infiltration. Aucune trace d'humidité n'a été constatée à l'intérieur du boîtier, ce qui confirme que l'inclinaison des lamelles dévie efficacement l'eau vers l'extérieur.
+
+\paragraph{Échauffement par rayonnement solaire.}
+La station a été exposée en plein soleil pendant plusieurs heures. La couleur blanche du boîtier maintient la température interne au plus à \(2\,^\circ\text{C}\) au-dessus de la température ambiante, contre plus de \(10\,^\circ\text{C}\) mesurés sur un prototype peint en noir lors d'un test comparatif. Ce résultat confirme le choix délibéré de la peinture blanche pour limiter l'effet de serre.
+
+\paragraph{Résistance mécanique.}
+Le boîtier a été soumis à des chocs et des vibrations représentatifs des conditions à bord d'un voilier en navigation. L'assemblage par vis et entretoises n'a présenté aucun jeu ni desserrage après ces essais, ce qui valide la robustesse de la fixation modulaire.
