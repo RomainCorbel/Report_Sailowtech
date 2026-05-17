@@ -4,14 +4,13 @@ Le sujet principal du design mécanique est la modularité. Afin de pouvoir adap
 
 \subsection{Structure intérieure}\label{subsec:interieur}
 
-Les deux PCB sont empilés verticalement sur des entretoises filetées, formant une structure en deux étages analogue à un rack miniaturisé. Cette architecture présente plusieurs avantages :
+Les deux PCB sont empilés verticalement sur des tiges filetées. Cette architecture présente plusieurs avantages :
 
 \begin{itemize}
-  \item Chaque étage est démontable indépendamment, ce qui facilite la maintenance.
+  \item La maintenance est grandement facilitée (demontage rapide, accès a tous les composants garanti).
   \item La forme circulaire des PCB optimise l'occupation du volume
     cylindrique disponible à l'intérieur du boîtier.
-  \item Les connecteurs inter-étages sont positionnés pour minimiser la
-    longueur des câbles.
+  \item Les connecteurs inter-étages sont positionnés pour minimiser l'espace nécessaire.
 \end{itemize}
 
 Des prototypes de la structure intérieure ont été réalisés par découpe laser sur MDF, permettant de valider les cotes, les positions de fixation et l'accessibilité aux connecteurs avant la commande des PCB définitifs (figure~\ref{fig:interieur}).
@@ -37,13 +36,13 @@ Plusieurs designs ont été explorés et testés avant d'aboutir à la solution 
 
 Nous sommes d'abord repartis du design initial issu des projets précédents : un boîtier cylindrique fermé avec des ouvertures latérales. Il est rapidement apparu que sans ventilation active, ce type de conception ne permettrait jamais un renouvellement d'air suffisant pour obtenir des mesures représentatives de l'atmosphère extérieure.
 
-Nous avons ensuite testé l'intégration de membranes Gore-Tex dans les ouvertures. Ces membranes présentent un intérêt réel : l'air passe à travers sans que l'eau ne puisse y pénétrer. Cependant, la résistance à l'écoulement qu'elles introduisent confirme que la ventilation passive reste insuffisante.
+Nous avons ensuite testé l'intégration de membranes Gore-Tex dans les ouvertures. Ces membranes présentent un intérêt réel : l'air passe à travers sans que l'eau ne puisse y pénétrer. Cependant, la résistance à l'écoulement qu'elles introduisent rendent uen fois de plus que la ventilation passive insuffisante.
 
 La solution retenue s'inspire du principe de l'\textit{abri de Stevenson}, standard météorologique historique conçu pour protéger les instruments de mesure du rayonnement solaire direct et des précipitations, tout en permettant la libre circulation de l'air. Notre version adapte ce concept à une géométrie cylindrique compacte, mieux adaptée à une fixation sur un mât ou une rambarde de voilier. Nous avons testé différentes longueurs et inclinaisons des lamelles par impression 3D jusqu'à trouver un design offrant le meilleur compromis entre protection face aux projections d'eau et aération suffisante.
 
-La station est entièrement blanche : c'est un choix délibéré pour limiter l'absorption du rayonnement solaire et éviter que le boîtier ne se réchauffe, ce qui biaiserait les mesures de température et d'humidité intérieures.
+Pour finir, la station est entièrement blanche afin de limiter l'absorption du rayonnement solaire et éviter que le boîtier ne chauffe au soleil, ce qui biaiserait les mesures de température et d'humidité intérieures.
 
-Grâce au principe de modularité, la partie supérieure du boîtier peut être changée en fonction des conditions de navigation. La version actuelle, polyvalente, est conçue pour convenir à toutes les conditions non extrêmes. Des tests en conditions réelles ont été effectués et ont permis de valider ce design.
+En suivant toujours le principe de modularité, la partie supérieure du boîtier peut être changée en fonction des conditions de navigation. La version actuelle, polyvalente, est conçue pour convenir à toutes les conditions non extrêmes. Des tests en conditions réelles ont été effectués et ont permis de valider ce design.
 
 \begin{figure}[H]
   \centering
