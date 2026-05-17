@@ -1,6 +1,6 @@
 \section{Conception électronique}\label{sec:electronique}
 
-\subsection{Protocole de communication}\label{subsec:protocole}
+\subsection{Protocole de communication externe à la station}\label{subsec:protocole}
 
 La station météo joue le rôle de concentrateur (\textit{hub}) de données entre
 plusieurs systèmes hétérogènes. Le schéma de communication retenu est décrit
@@ -29,6 +29,52 @@ liaison filaire.
   \caption{Schéma du protocole de communication entre les différents systèmes.}
   \label{fig:protocole_comm}
 \end{figure}
+
+
+\subsection{Protocole de communication interne à la station}\label{subsec:protocole_interne}
+
+Au sein de la station, plusieurs protocoles de communication coexistent pour
+relier le microcontrôleur principal aux différents périphériques et capteurs.
+Le choix du protocole pour chaque liaison résulte d'un compromis entre les
+contraintes propres à chaque composant (débit, distance, nombre de fils
+disponibles) et la volonté de maintenir une architecture modulaire et évolutive.
+
+\paragraph{UART.}
+La liaison série asynchrone \textit{UART} est utilisée pour les communications
+point-à-point nécessitant un flux de données continu. Elle relie notamment le
+module GPS à l'ESP32, ainsi que la caméra \textit{Joy-it ESP32} à l'ESP32
+maître, cette dernière fonctionnant comme un sous-système autonome qui transmet
+ses images et métadonnées via une liaison série dédiée. Ce protocole, simple
+à mettre en œuvre, présente cependant l'inconvénient majeur de ne pouvoir
+connecter que deux équipements par paire de broches, ce qui limite son
+extensibilité.
+
+\paragraph{SPI.}
+Le bus \textit{SPI} (Serial Peripheral Interface) est retenu pour les liaisons
+exigeant un haut débit. Il assure la communication avec le lecteur de carte SD,
+où la rapidité d'écriture est critique pour ne pas perdre de mesures, ainsi
+qu'avec le transceiver CAN \textit{MCP2515} chargé de la passerelle NMEA 2000.
+Le SPI permet de gérer plusieurs esclaves via des lignes de sélection (CS)
+dédiées, mais chaque nouveau périphérique requiert une broche GPIO supplémentaire
+sur le microcontrôleur, ce qui restreint le passage à l'échelle.
+
+\paragraph{I\textsuperscript{2}C.}
+Le bus \textit{I\textsuperscript{2}C} (Inter-Integrated Circuit) constitue
+principal vecteur de la communication interne de la station et a été privilégié
+chaque fois que cela était possible. Contrairement à l'UART (point-à-point) et
+au SPI (qui mobilise une broche par esclave), l'I\textsuperscript{2}C est un
+\textit{véritable bus} : il ne nécessite que deux fils (SDA et SCL) pour
+adresser jusqu'à 127 périphériques distincts via leurs adresses uniques. Cette
+caractéristique en fait le protocole idéal pour assurer la modularité de la
+station, objectif structurant de la conception : l'ajout d'un nouveau capteur
+ne requiert ni broche supplémentaire sur l'ESP32, ni modification du routage
+existant, mais un simple raccordement sur le bus partagé. Le \textit{BME280}
+(température, pression, humidité), le \textit{BH1750} (luminosité), l'\textit{MPU-6050}
+(IMU) et le capteur de particules fines \textit{SPS30} communiquent ainsi via
+ce bus, chacun possédant une adresse propre. Les ports d'extension prévus sur
+les deux PCB exposent également des lignes I\textsuperscript{2}C, ce qui permet
+d'intégrer facilement de futurs capteurs sans révision matérielle de la station.
+
 
 \subsection{PCB étage 1 : Contrôle et connectivité}\label{subsec:pcb1}
 
@@ -166,6 +212,8 @@ l'imposent.
   \label{fig:pcb2}
 \end{figure}
 
+
+
 \subsection{Réalisation}\label{subsec:realisation_elec}
 
 L'ensemble du système électronique est fonctionnel. Les capteurs ont été testés
@@ -173,5 +221,104 @@ individuellement puis en configuration complète : les lectures sont cohérentes
 la communication entre les deux étages est stable, et l'enregistrement sur carte
 SD ainsi que la transmission Wi-Fi fonctionnent correctement. Un firmware complet
 a été développé pour orchestrer l'acquisition, l'horodatage, le stockage et la
-transmission des mesures. Le système est prêt à être intégré dans le boîtier
-mécanique pour des tests en conditions réelles.
+transmission des mesures.
+
+Sur le plan mécanique, les deux PCB sont reliés entre eux par un connecteur
+10 broches qui assure à la fois la liaison électrique (alimentation 5\,V et 3,3\,V,
+masse, lignes I\textsuperscript{2}C, signaux UART vers la caméra et broches
+supplémentaires réservées à de futurs usages) et la tenue mécanique de
+l'assemblage : les deux cartes viennent s'empiler directement l'une sur l'autre,
+sans nappe ni câblage intermédiaire. Outre le gain de place évident dans le
+boîtier cylindrique compact décrit à la section~\ref{sec:mecanique}, cette
+approche s'inscrit pleinement dans la logique de modularité qui structure la
+conception de la station. Chaque étage constitue un module fonctionnel autonome :
+le PCB étage 1 concentre le traitement, le stockage et la connectivité, tandis
+que le PCB étage 2 regroupe l'instrumentation environnementale. Le connecteur
+10 broches expose explicitement les bus partagés (notamment l'I\textsuperscript{2}C),
+ce qui rend chaque étage indépendamment remplaçable : il est par exemple possible
+de faire évoluer l'étage capteurs vers une nouvelle génération d'instruments
+sans toucher à l'étage de contrôle, ou inversement de mettre à jour le
+microcontrôleur sans rejouer le routage des capteurs. Les broches de réserve
+prévues sur le connecteur permettent en outre d'introduire de nouveaux signaux
+entre les deux étages si les besoins du projet évoluent, sans imposer de
+révision matérielle de l'interconnexion.
+
+\subsection{Architecture logicielle}\label{subsec:software}
+
+L'intelligence embarquée de la station repose sur trois firmwares distincts,
+chacun exécuté sur un microcontrôleur dédié et communiquant avec les autres
+selon les protocoles décrits à la section~\ref{subsec:protocole_interne}.
+Cette répartition des tâches permet à chaque processeur de se concentrer sur
+un rôle bien défini sans saturer ses ressources.
+
+\paragraph{Firmware ESP32 maître.}
+Le code principal, exécuté sur l'ESP32 DevKit M V1 du PCB étage 1, orchestre
+l'ensemble du système. Il assure l'acquisition cadencée des capteurs via les
+bus I\textsuperscript{2}C, SPI et UART, l'horodatage des mesures à partir du
+GPS, la mise en forme des données au format CSV et leur enregistrement sur la
+carte SD. Il gère également la réception des images transmises par l'ESP-CAM
+via UART, leur stockage sous forme de fichiers JPEG sur la même carte SD, et
+expose une API locale permettant au module XIAO ESP32C6 de récupérer les
+fichiers à la demande.
+
+\paragraph{Firmware ESP-CAM.}
+La caméra Joy-it ESP32 fonctionne comme un sous-système autonome. Son firmware
+gère la capture périodique d'images du ciel à intervalle configurable, les
+compresse au format JPEG, puis les transmet à l'ESP32 maître via la liaison
+UART. Ce découplage permet de ne pas mobiliser le microcontrôleur principal
+pendant les phases de capture et de traitement d'image, qui sont relativement
+coûteuses en mémoire.
+
+\paragraph{Firmware XIAO ESP32C6.}
+Le module XIAO ESP32C6, en plus de gérer la communication Zigbee avec la sonde
+CTD, héberge un serveur web embarqué accessible en Wi-Fi qui constitue
+l'interface utilisateur de la station. Cette interface est conçue selon une
+logique résolument minimaliste : trois écrans seulement, et un nombre de boutons
+volontairement réduit. L'utilisateur arrive sur une page d'accueil
+(figure~\ref{fig:ui_home}) listant les enregistrements précédents avec, pour
+chacun, trois actions atomiques : visualiser, télécharger, supprimer. Un unique
+bouton vert lance la configuration d'une nouvelle session
+(figure~\ref{fig:ui_setup}), au cours de laquelle l'utilisateur renseigne les
+métadonnées de l'expédition (nom, date, lieu, description) et sélectionne les
+capteurs à activer ; l'état de chaque capteur (en ligne / hors ligne, qualité
+du fix GPS) est affiché en temps réel pour permettre un diagnostic immédiat
+avant le lancement. Une fois la session démarrée (figure~\ref{fig:ui_active}),
+un tableau de bord affiche les valeurs courantes des principaux capteurs et
+l'état du GPS ; un seul bouton permet de clôturer la session. La visualisation
+des données enregistrées (figure~\ref{fig:ui_csv}) présente le contenu du CSV
+sous forme tabulaire, avec les métadonnées de session rappelées en en-tête.
+
+L'objectif de cette interface n'est pas d'offrir des fonctionnalités avancées
+de visualisation, celles-ci seront réalisées en post-traitement sur
+ordinateur, mais de garantir une utilisation rapide et sans ambiguïté en
+conditions de terrain, où l'utilisateur a souvent les mains occupées et peu
+de temps pour naviguer dans des menus.
+
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}[b]{0.23\textwidth}
+    \includegraphics[width=\textwidth]{images/Interface1.png}
+    \caption{Accueil}
+    \label{fig:ui_home}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{0.24\textwidth}
+    \includegraphics[width=\textwidth]{images/interface2.png}
+    \caption{Configuration}
+    \label{fig:ui_setup}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{0.25\textwidth}
+    \includegraphics[width=\textwidth]{images/interface3.png}
+    \caption{Session active}
+    \label{fig:ui_active}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{0.23\textwidth}
+    \includegraphics[width=\textwidth]{images/interface4.png}
+    \caption{Visualisation CSV}
+    \label{fig:ui_csv}
+  \end{subfigure}
+  \caption{Interface web embarquée : un parcours minimaliste en quatre écrans.}
+  \label{fig:ui}
+\end{figure}
