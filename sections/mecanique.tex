@@ -1,17 +1,15 @@
 \section{Design mécanique}\label{sec:mecanique}
 
-Le design mécanique de la station s'articule autour de deux fonctions complémentaires, qui structurent également ce chapitre. La \textbf{structure intérieure} maintient en position les cartes électroniques et assure leur interconnexion mécanique et électrique. Le \textbf{boîtier extérieur} protège l'ensemble contre les éléments : précipitations, gerbes d'eau, rayonnement solaire direct et contraintes mécaniques liées à la navigation. Ces deux sous-ensembles partagent un principe commun de \textbf{modularité} : aucune pièce n'est fixée de manière définitive, l'assemblage reposant sur des systèmes démontables (vis, entretoises, serrages) qui permettent de remplacer ou de modifier des éléments facilement. La hauteur de la station peut par exemple être augmentée pour accueillir des capteurs ou des batteries supplémentaires.
+Le design mécanique de la station s'articule autour de deux fonctions complémentaires, qui structurent également ce chapitre. 
+\begin{itemize}
+    \item La structure intérieure maintient en position les cartes électroniques et assure leur interconnexion mécanique et électrique.
+    \item Le boîtier extérieur protège l'ensemble contre les éléments : précipitations, gerbes d'eau, rayonnement solaire direct et contraintes mécaniques liées à la navigation. 
+\end{itemize}
+ Ces deux sous-ensembles partagent un principe commun de modularité : aucune pièce n'est fixée de manière définitive, l'assemblage reposant sur des systèmes démontables (vis, entretoises, serrages) qui permettent de remplacer ou de modifier des éléments facilement. La hauteur de la station peut par exemple être augmentée pour accueillir des capteurs ou des batteries supplémentaires.
 
 \subsection{Structure intérieure}\label{subsec:interieur}
+Les deux PCB sont empilés verticalement sur des tiges filetées. La maintenance est ainsi grandement facilitée grâce à un démontage rapide et à un accès garanti à l’ensemble des composants. La forme circulaire des PCB permet par ailleur d’optimiser l’occupation du volume cylindrique disponible à l’intérieur du boîtier. Enfin, les connecteurs inter-étages sont positionnés de manière à minimiser l’espace nécessaire.
 
-Les deux PCB sont empilés verticalement sur des tiges filetées. Cette architecture présente plusieurs avantages :
-
-\begin{itemize}
-  \item La maintenance est grandement facilitée (demontage rapide, accès a tous les composants garanti).
-  \item La forme circulaire des PCB optimise l'occupation du volume
-    cylindrique disponible à l'intérieur du boîtier.
-  \item Les connecteurs inter-étages sont positionnés pour minimiser l'espace nécessaire.
-\end{itemize}
 
 Des prototypes de la structure intérieure ont été réalisés par découpe laser sur MDF, permettant de valider les cotes, les positions de fixation et l'accessibilité aux connecteurs avant la commande des PCB définitifs (figure~\ref{fig:interieur}).
 
@@ -34,9 +32,10 @@ Des prototypes de la structure intérieure ont été réalisés par découpe las
 
 Trois prototypes successifs ont été développés pour répondre aux contraintes de ventilation, d'étanchéité et d'intégration à bord d'un voilier.
 
-\subsubsection*{Prototype 1 — Boîtier avec ventilation active}\label{subsubsec:proto1}
+\subsubsection*{Prototype 1 : Boîtier ventilé par effet cheminé}\label{subsubsec:proto1}
+Le design initial, hérité des projets précédents, reposait sur un boîtier cylindrique fermé conçu pour favoriser une ventilation passive par effet cheminée. La partie inférieure blanche limitait l’absorption du rayonnement solaire, tandis que le capot supérieur noir chauffait davantage l’air interne, créant ainsi une circulation naturelle de l’air entre les ouvertures basses et hautes du boîtier. Le déplacement du bateau contribuait également au renouvellement de l’air à l’intérieur de l’enceinte.
 
-Le point de départ est le design issu des projets précédents : un boîtier cylindrique fermé équipé d'ouvertures latérales et d'un système de ventilation forcée. Ce premier prototype avait l'avantage d'assurer un renouvellement d'air contrôlé, mais la complexité mécanique et la consommation électrique supplémentaire liée au ventilateur posaient des problèmes de fiabilité et d'autonomie à long terme (figure~\ref{fig:proto1}).
+Cependant, les premiers tests du prototype ont montré que cette ventilation passive n’était pas suffisante pour assurer une dissipation thermique correcte dans certaines conditions de fonctionnement. L’utilisation d’une ventilation active s’est donc révélée nécessaire. Ce premier prototype aboutit ainsi à un système plus complexe, moins autonome énergétiquement et potentiellement moins fiable à long terme en raison de l’ajout de composants mécaniques (figure~\ref{fig:proto1}).
 
 \begin{figure}[H]
   \centering
@@ -45,11 +44,11 @@ Le point de départ est le design issu des projets précédents : un boîtier cy
   \label{fig:proto1}
 \end{figure}
 
-\subsubsection*{Prototype 2 — Membranes Gore-Tex}\label{subsubsec:proto2}
+\subsubsection*{Prototype 2 : Membranes Gore-Tex}\label{subsubsec:proto2}
 
-Pour s'affranchir du ventilateur, nous avons testé l'intégration de membranes \textit{Gore-Tex} dans les ouvertures latérales. Ces membranes permettent au gaz de traverser la paroi sans laisser passer l'eau liquide, ce qui semblait offrir un bon compromis entre étanchéité et aération passive. Les essais ont cependant montré que la résistance à l'écoulement de ces membranes est trop élevée : le renouvellement d'air reste insuffisant pour que les capteurs internes reflètent fidèlement les conditions extérieures. Cette piste a donc été abandonnée.
+Pour s'affranchir du ventilateur, nous avons testé l'intégration de membranes \textit{Gore-Tex}. Ces membranes permettent au gaz de traverser la paroi sans laisser passer l'eau liquide, ce qui semblait offrir un bon compromis entre étanchéité et aération passive. Les essais ont cependant montré que la résistance à l'écoulement de ces membranes est trop élevée : le renouvellement d'air reste insuffisant pour que les capteurs internes reflètent fidèlement les conditions extérieures. Cette piste a donc été abandonnée.
 
-\subsubsection*{Prototype 3 — Abri de Stevenson cylindrique}\label{subsubsec:proto3}
+\subsubsection*{Prototype 3 : Abri de Stevenson cylindrique}\label{subsubsec:proto3}
 
 La solution retenue s'inspire de l'\textit{abri de Stevenson}, standard météorologique historique conçu pour protéger les instruments de mesure du rayonnement solaire direct et des précipitations tout en permettant la libre circulation de l'air (figure~\ref{fig:stevenson_ref}). Dans sa forme classique, il se présente comme une caisse à lamelles persiennées et peinte en blanc.
 
@@ -91,7 +90,9 @@ Grâce au principe de modularité, la partie supérieure du boîtier peut être 
 Une fois le design de l'abri de Stevenson cylindrique arrêté, nous avons conduit plusieurs séries de tests pour vérifier que le boîtier satisfait les exigences opérationnelles d'une station embarquée sur voilier.
 
 \paragraph{Ventilation passive.}
-L'objectif est que les capteurs de température et d'humidité mesurent l'air extérieur, non l'air emprisonné dans le boîtier. Nous avons comparé les relevés de la station à ceux d'une sonde de référence placée à l'extérieur, à l'ombre, dans des conditions de vent faible et fort. L'écart entre les deux lectures s'est révélé inférieur à \(0{,}5\,^\circ\text{C}\) et à \(2\,\%\,\text{HR}\) dès qu'un léger courant d'air est présent, ce qui valide la géométrie des lamelles (figure~\ref{fig:ventilation}).
+L’objectif est que les capteurs de température et d’humidité mesurent l’air extérieur plutôt que l’air confiné à l’intérieur du boîtier. Lors des essais, les valeurs relevées par la station sont restées cohérentes avec les conditions environnementales attendues au moment des tests, sans température anormalement élevée ni humidité aberrante. Ces observations suggèrent que la géométrie des lamelles permet un renouvellement d’air suffisant pour limiter l’échauffement interne (figure~\ref{fig:ventilation}).
+
+Il serait toutefois pertinent d’étendre cette analyse en réalisant des mesures comparatives avec une sonde de référence placée à proximité, à l’ombre, effectuant les mêmes acquisitions en parallèle.
 
 \begin{figure}[H]
   \centering
@@ -101,10 +102,10 @@ L'objectif est que les capteurs de température et d'humidité mesurent l'air ex
 \end{figure}
 
 \paragraph{Étanchéité.}
-Le boîtier a été soumis à des projections d'eau directes simulant des embruns et de la pluie latérale. Après chaque essai, l'intérieur a été inspecté visuellement et pesé pour détecter toute infiltration. Aucune trace d'humidité n'a été constatée à l'intérieur du boîtier, ce qui confirme que l'inclinaison des lamelles dévie efficacement l'eau vers l'extérieur.
+Le boîtier a été soumis à des projections d'eau directes simulant des embruns et de la pluie latérale. Après chaque essai, l'intérieur a été inspecté visuellement pour détecter toute infiltration. Aucune trace d'humidité n'a été constatée à l'intérieur du boîtier, ce qui confirme que l'inclinaison des lamelles dévie efficacement l'eau vers l'extérieur.
 
 \paragraph{Échauffement par rayonnement solaire.}
-La station a été exposée en plein soleil pendant plusieurs heures. La couleur blanche du boîtier maintient la température interne au plus à \(2\,^\circ\text{C}\) au-dessus de la température ambiante, contre plus de \(10\,^\circ\text{C}\) mesurés sur un prototype peint en noir lors d'un test comparatif. Ce résultat confirme le choix délibéré de la peinture blanche pour limiter l'effet de serre.
+La station a été exposée en plein soleil pendant 3 heures. La couleur blanche du boîtier maintient la température interne au plus à \(2\,^\circ\text{C}\) au-dessus de la température ambiante. Ce résultat confirme que l'effet de serre est suffisament limité.
 
 \paragraph{Résistance mécanique.}
 Le boîtier a été soumis à des chocs et des vibrations représentatifs des conditions à bord d'un voilier en navigation. L'assemblage par vis et entretoises n'a présenté aucun jeu ni desserrage après ces essais, ce qui valide la robustesse de la fixation modulaire.
